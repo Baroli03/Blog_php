@@ -4,8 +4,8 @@ require_once __DIR__ . "/../model/Post.php";
 
 class PostController{
 
-    static function index($parametro = 1) {
-    $paginaAtual = (int)$parametro;
+    static function index($numero_pagina = 1) {
+    $paginaAtual = (int)$numero_pagina;
     if ($paginaAtual < 1) {
         $paginaAtual = 1;
     }
@@ -26,10 +26,35 @@ class PostController{
 
 
     include __DIR__ . '/../views/partes/header.php';
+
     include __DIR__ . '/../views/posts/index.php'; 
+    
     include __DIR__ . '/../views/partes/footer.php';
     }
 
+
+    static function show($parametro_id) {
+        $id = (int)$parametro_id;
+        if ($id < 1) {
+
+            $post = null; 
+        } else {
+            $post = Post::pegarPostId($id);
+        }
+
+        include __DIR__ . '/../views/partes/header.php';
+
+        include __DIR__ . '/../views/posts/show.php';
+
+        include __DIR__ . '/../views/partes/footer.php';
+    }
+
+
+
+
 }
+
+
+
 
 ?>

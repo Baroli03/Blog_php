@@ -24,6 +24,18 @@ class Post {
         return $row->total_posts;
         
     }
+
+
+    public static function pegarPostId($id) {
+        $sql = "SELECT id, titulo, conteudo, data_criacao, comentario_autor
+                FROM posts
+                WHERE id = " . (int)$id . " LIMIT 1";
+        $result = Banco::getConn()->query($sql);
+        if ($result && $result->num_rows > 0) { 
+            return $result->fetch_object();
+        }
+        return null;
+    }
 }
 
 ?>
