@@ -21,9 +21,17 @@ class PostController{
         }
     }
 
+
     $totalPosts = Post::contarTodosPosts();
     $totalPaginas = ceil($totalPosts / $postsPorPagina);
 
+    $data_para_view = [
+            'posts' => $posts,
+            'paginaAtual' => $paginaAtual, 
+            'totalPaginas' => $totalPaginas,
+        ]
+
+    extract($data_para_view); 
 
     include __DIR__ . '/../views/partes/header.php';
 
@@ -33,7 +41,7 @@ class PostController{
     }
 
 
-    static function show($parametro_id) {
+    static function mostrar($parametro_id) {
         $id = (int)$parametro_id;
         if ($id < 1) {
 
@@ -44,17 +52,35 @@ class PostController{
 
         include __DIR__ . '/../views/partes/header.php';
 
-        include __DIR__ . '/../views/posts/show.php';
+        include __DIR__ . '/../views/posts/mostrar.php';
 
         include __DIR__ . '/../views/partes/footer.php';
     }
 
 
 
+    static function delete($parametro_id) {
+        $id = (int)$parametro_id;
 
+        $sucesso = Post::deletarPost($id);
+        if ($id > 0) {
+
+            if ($sucesso) {
+                $_SESSION['success_message'] = 'Post excluído com sucesso!';
+                header('Location: /posts/index');
+                exit();
+            } else {
+                $_SESSION['error_message'] = 'Erro ao excluir o post. Por favor, tente novamente.';
+                header('Location: /posts/index');
+                exit();
+            }
+        } else {
+             header('Location: /posts/index');
+            exit();
+    }
 }
 
 
-
+}
 
 ?>

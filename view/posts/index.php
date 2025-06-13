@@ -1,3 +1,16 @@
+<?php
+if (isset($_SESSION['success_message'])) {
+    echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+    unset($_SESSION['success_message']);
+}
+
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+    unset($_SESSION['error_message']);
+}
+
+
+?>  
 <div class="lista-posts">
     <?php
     if (!empty($posts)) {
@@ -41,9 +54,39 @@
 
         
     <?php }
-} else { 
-
+} else {
+    
         echo '<p>Nenhum post encontrado no momento.</p>';
     }?>
-
 </div>
+
+<?php 
+    if(isset($totalPaginas) && $totalPaginas > 1) :
+?>
+
+<div class="paginacao">
+    <?php
+        if(isset($paginaAtual) && $paginaAtual > 1) :
+    ?>  
+        <a href="/posts/index/<?php echo ($paginaAtual - 1); ?>">&laquo; Anterior</a>
+    <?php endif; ?>
+
+    <?php 
+
+        for ($i = 1; $i <= $totalPaginas; $i++) : 
+            ?>
+                <a href="/posts/index/<?php echo $i; ?>" 
+                class="<?php echo (isset($paginaAtual) && $i == $paginaAtual) ? 'active' : ''; ?>">
+                    <?php echo $i; ?>
+                </a>
+    <?php endfor; ?>
+
+
+<?php
+    if (isset($paginaAtual) && $paginaAtual < $totalPaginas) : 
+?>
+
+<a href="/posts/index/<?php echo ($paginaAtual + 1); ?>">Próxima &raquo;</a>
+<?php endif; ?>
+</div> <?php endif; ?>
+
