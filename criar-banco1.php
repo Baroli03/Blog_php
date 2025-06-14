@@ -27,7 +27,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS `$dbNome` CHARACTER SET utf8mb4 COLLATE ut
 if ($conn->query($sql) === TRUE) {
     echo "Banco de dados '$dbNome' criado (ou já existente).<br>";
 } else {
-    echo "Erro ao criar o banco de dados: " . $conn->error . "<br>";
+    echo "Erro ao criar o banco de dados: " . $caonn->error . "<br>";
 }
 
 
