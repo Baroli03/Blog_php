@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/banco.php';
 
 class User
 {
-    public static function getByUsername($nome_usuario)
+    public static function getByUsername($nome_usuario){
     try{
         {
             $conn = Banco::getConn();
@@ -17,4 +17,5 @@ class User
             error_log("Erro ao buscar usuário: " . $e->getMessage());
             return false; 
         }
+}
 }
