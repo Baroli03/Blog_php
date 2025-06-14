@@ -56,5 +56,56 @@ class Post {
         return false;
         }
 }
+
+
+    public static function criarPost($admin_id, $titulo, $conteudo, $comentario_autor) {
+        $sql = "INSERT INTO posts (admin_id, titulo, conteudo, comentario_autor) 
+                VALUES (:admin_id, :titulo, :conteudo, :comentario_autor)";
+        try {
+            $result = Banco::getConn()->prepare($sql);
+            $result->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
+            $result->bindParam(':titulo', $titulo, PDO::PARAM_STR)
+            $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+            if ($comentario_autor === null || $comentario_autor === '') {
+                $result->bindValue(':comentario_autor', null, PDO::PARAM_NULL);
+            } else {
+                $result->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
+            }
+            return $result->execute(); 
+    } catch (PDOException $e) {
+            error_log("Erro ao criar post: " . $e->getMessage());
+            return false;
+        }
+
+}
+
+public static function atualizarPost($id, $titulo, $conteudo, $comentario_autor) {
+        $sql = "UPDATE posts 
+                SET titulo = :titulo, 
+                    conteudo = :conteudo, 
+                    comentario_autor = :comentario_autor
+                WHERE id = :id";
+        
+        try {
+            $result = Banco::getConn()->prepare($sql);
+
+            $result->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+            $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+            
+            if ($comentario_autor === null || $comentario_autor === '') {
+                $result->bindValue(':comentario_autor', null, PDO::PARAM_NULL);
+            } else {
+                $result->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
+            }
+
+            $result->bindParam(':id', $id, PDO::PARAM_INT); 
+            
+            return $result->execute(); 
+
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar post: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>
