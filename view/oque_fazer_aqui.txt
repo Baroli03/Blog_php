@@ -1,0 +1,25 @@
+O que fazer aqui na pasta View
+
+Esta pasta guarda as "Visualizações" do nosso blog. Elas são como os "desenhos" das páginas que o usuário vê no navegador.
+
+O que colocar aqui:
+
+    Arquivos HTML (com trechos de PHP) que montam o layout da página.
+
+    Código PHP que apenas mostra dados que foram preparados pelo "Controlador". Por exemplo, um foreach para listar vários posts ou comentários.
+
+    Formulários HTML para o usuário digitar informações (ex: formulário para criar um post, formulário para comentar).
+
+    Links e botões.
+
+O que NÃO colocar aqui:
+
+    Queries de banco de dados. NUNCA coloque um INSERT, SELECT, UPDATE ou DELETE direto aqui.
+
+    Lógica de negócio complexa. Quem faz isso é o "Modelo" ou o "Controlador".
+
+    Receber pedidos do usuário (URLs).
+
+    Redirecionamentos de página.
+
+    Senhas ou informações sensíveis.

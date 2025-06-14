@@ -1,0 +1,29 @@
+O que fazer aqui na pasta Model
+
+Esta pasta guarda os "Modelos" do nosso blog. Eles são como os "especialistas" em cada tipo de informação que temos (Posts, Comentários, Administradores). Eles sabem como lidar com o banco de dados.
+
+O que colocar aqui:
+
+    Arquivos PHP que representam uma "coisa" do nosso blog (ex: Post.php, Comentario.php, Admin.php).
+
+    A lógica para interagir com o banco de dados. Isso inclui funções para:
+
+        Criar um novo item (INSERT).
+
+        Ler um item ou uma lista de itens (SELECT).
+
+        Atualizar um item existente (UPDATE).
+
+        Excluir um item (DELETE).
+
+    Regras de validação dos dados. Por exemplo, verificar se um título de post não está vazio ou se um e-mail de comentário tem o formato correto.
+
+    A lógica de negócio pura. Ex: como contar quantos comentários um post tem.
+
+O que NÃO colocar aqui:
+
+    Código HTML.
+
+    Receber pedidos do usuário (URLs ou formulários). Isso é trabalho do "Controlador".
+
+    Redirecionamentos de página.
