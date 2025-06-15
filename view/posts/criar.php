@@ -10,7 +10,7 @@
     }
     ?>
 
-    <form action="<?= BASE_URL ?>posts/create" method="POST">
+    <form action="<?= BASE_URL ?>posts/criar" method="POST">
         <div class="form-group">
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required 

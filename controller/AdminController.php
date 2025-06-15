@@ -7,7 +7,7 @@ class AdminController {
         
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || !isset($_SESSION['admin_id'])) {
             $_SESSION['error_message'] = 'Acesso restrito. Faça login como administrador.';
-            header("Location: /admin/login");
+            header("Location: " . BASE_URL . "admin/login"); 
             exit();
         }
     }

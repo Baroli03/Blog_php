@@ -1,8 +1,5 @@
 Options -Indexes
 RewriteEngine On
 RewriteBase /Blog_php/
-
-# Redireciona todas as requisições que não são arquivos ou diretórios existentes para o index.php
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?p=$1 [L,QSA]

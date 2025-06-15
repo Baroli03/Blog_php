@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (!isset($_SESSION['admin_id'])) {
     // Redireciona usando BASE_URL, para garantir que o acesso restrito leve ao login correto
     header("Location: " . BASE_URL . "admin/login");
@@ -14,6 +13,6 @@ if (!isset($_SESSION['admin_id'])) {
 <hr>
 <h2>Ações Administrativas:</h2>
 <ul>
-    <li><a href="<?= BASE_URL ?>posts/create">Criar Novo Post</a></li>
+    <li><a href="<?= BASE_URL ?>posts/criar">Criar Novo Post</a></li>
     <li><a href="<?= BASE_URL ?>posts/index">Gerenciar Posts (Ver lista completa)</a></li>
 </ul>

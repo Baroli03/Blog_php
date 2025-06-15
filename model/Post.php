@@ -3,7 +3,6 @@ require_once __DIR__ . '/../config/banco.php';
 
 class Post
 {
-    // Método para listar posts com paginação
     public static function listarPosts($limit, $offset)
     {
         try {
@@ -14,7 +13,6 @@ class Post
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             
-            // Retorna o PDOStatement, pois o PostController::index() faz o loop fetch_object() (que agora busca objetos por padrão)
             return $stmt; 
 
         } catch (PDOException $e) {
@@ -23,7 +21,6 @@ class Post
         }
     }
 
-    // Método para pegar um post por ID
     public static function pegarPostId($id)
     {
         try {
@@ -33,7 +30,7 @@ class Post
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             
-            return $stmt->fetch(PDO::FETCH_OBJ); // Retorna um único objeto Post
+            return $stmt->fetch(PDO::FETCH_OBJ); 
 
         } catch (PDOException $e) {
             error_log("Erro ao pegar post por ID: " . $e->getMessage());
@@ -41,7 +38,6 @@ class Post
         }
     }
 
-    // Método para criar um novo post
     public static function criarPost($admin_id, $titulo, $conteudo, $comentario_autor)
     {
         try {
@@ -53,7 +49,7 @@ class Post
             $stmt->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
             $stmt->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
             
-            return $stmt->execute(); // Retorna true em caso de sucesso, false em caso de falha
+            return $stmt->execute();
 
         } catch (PDOException $e) {
             error_log("Erro ao criar post: " . $e->getMessage());
@@ -61,7 +57,6 @@ class Post
         }
     }
 
-    // Método para atualizar um post existente
     public static function atualizarPost($id, $titulo, $conteudo, $comentario_autor)
     {
         try {
@@ -81,7 +76,6 @@ class Post
         }
     }
 
-    // Método para deletar um post
     public static function deletarPost($id)
     {
         try {
@@ -97,18 +91,17 @@ class Post
         }
     }
 
-    // Método para contar todos os posts (para paginação)
     public static function contarTodosPosts()
     {
         try {
             $conn = Banco::getConn();
             $stmt = $conn->query("SELECT COUNT(*) FROM posts");
             
-            return $stmt->fetchColumn(); // Retorna o valor da primeira coluna da primeira linha
+            return $stmt->fetchColumn(); 
 
         } catch (PDOException $e) {
             error_log("Erro ao contar posts: " . $e->getMessage());
-            return 0; // Retorna 0 em caso de erro
+            return 0; 
         }
     }
 }
