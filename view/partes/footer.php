@@ -3,6 +3,7 @@
 
 </footer>
 
-    <script src="/public/js/script.js"></script>
+    
+    <script src="<?= BASE_URL ?>public/js/script.js"></script>
 </body>
 </html>

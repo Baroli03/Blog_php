@@ -1,111 +1,114 @@
 <?php
+require_once __DIR__ . '/../config/banco.php';
 
-require_once __DIR__ . "/../config/Banco.php";
-
-class Post {
-    public static function listarPosts($posts_por_pagina, $OFFSET ){
-        try{
-             $sql = "SELECT id, titulo, conteudo, comentario_autor, data_criacao
-                  FROM posts
-                  ORDER BY data_criacao DESC
-                  LIMIT :posts_por_pagina OFFSET :offset";    
-    $result = Banco::getConn()->prepare($sql);
-    $result->bindParam(':posts_por_pagina', $posts_por_pagina, PDO::PARAM_INT);
-    $result->bindParam(':offset', $OFFSET, PDO::PARAM_INT);
-    $result->execute();
-    return $result;
-    }catch (PDOException $e) {
-        error_log("Erro ao listar posts: " . $e->getMessage());
-        return false;
-    }
-}
-
-        
-    public static function contarTodosPosts() {
-        $sql = "SELECT COUNT(*) as total_posts FROM posts";
-        $result = Banco::getConn()->query($sql);
-        $row = $result->fetch_object();
-        return $row->total_posts;
-        
-    }
-
-
-    public static function pegarPostId($id) {
-        $sql = "SELECT id, titulo, conteudo, data_criacao, comentario_autor
-                FROM posts
-                WHERE id = " . (int)$id . " LIMIT 1";
-        $result = Banco::getConn()->query($sql);
-        if ($result && $result->num_rows > 0) { 
-            return $result->fetch_object();
-        }
-        return null;
-    }
-
-
-    public static function deletarPost($id) {
-        $sql = "DELETE FROM posts WHERE id = :id";
-
+class Post
+{
+    // Método para listar posts com paginação
+    public static function listarPosts($limit, $offset)
+    {
         try {
-            $result = Banco::getConn()->prepare($sql);
-            $result->bindParam(':id', $id, PDO::PARAM_INT);
-            $sucesso = $result->execute();
-            return $sucesso;
-    
-        }catch (PDOException $e) {
-        error_log("Erro ao deletar post: " . $e->getMessage());
-        return false;
+            $conn = Banco::getConn();
+            $stmt = $conn->prepare("SELECT id, titulo, conteudo, data_criacao, comentario_autor FROM posts ORDER BY data_criacao DESC LIMIT :limit OFFSET :offset");
+            
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            // Retorna o PDOStatement, pois o PostController::index() faz o loop fetch_object() (que agora busca objetos por padrão)
+            return $stmt; 
+
+        } catch (PDOException $e) {
+            error_log("Erro ao listar posts: " . $e->getMessage());
+            return false;
         }
-}
+    }
 
-
-    public static function criarPost($admin_id, $titulo, $conteudo, $comentario_autor) {
-        $sql = "INSERT INTO posts (admin_id, titulo, conteudo, comentario_autor) 
-                VALUES (:admin_id, :titulo, :conteudo, :comentario_autor)";
+    // Método para pegar um post por ID
+    public static function pegarPostId($id)
+    {
         try {
-            $result = Banco::getConn()->prepare($sql);
-            $result->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
-            $result->bindParam(':titulo', $titulo, PDO::PARAM_STR);
-            $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
-            if ($comentario_autor === null || $comentario_autor === '') {
-                $result->bindValue(':comentario_autor', null, PDO::PARAM_NULL);
-            } else {
-                $result->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
-            }
-            return $result->execute(); 
-    } catch (PDOException $e) {
+            $conn = Banco::getConn();
+            $stmt = $conn->prepare("SELECT id, titulo, conteudo, data_criacao, comentario_autor FROM posts WHERE id = :id");
+            
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $stmt->fetch(PDO::FETCH_OBJ); // Retorna um único objeto Post
+
+        } catch (PDOException $e) {
+            error_log("Erro ao pegar post por ID: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para criar um novo post
+    public static function criarPost($admin_id, $titulo, $conteudo, $comentario_autor)
+    {
+        try {
+            $conn = Banco::getConn();
+            $stmt = $conn->prepare("INSERT INTO posts (admin_id, titulo, conteudo, comentario_autor) VALUES (:admin_id, :titulo, :conteudo, :comentario_autor)");
+            
+            $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
+            $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+            $stmt->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+            $stmt->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
+            
+            return $stmt->execute(); // Retorna true em caso de sucesso, false em caso de falha
+
+        } catch (PDOException $e) {
             error_log("Erro ao criar post: " . $e->getMessage());
             return false;
         }
+    }
 
-}
-
-public static function atualizarPost($id, $titulo, $conteudo, $comentario_autor) {
-        $sql = "UPDATE posts 
-                SET titulo = :titulo, 
-                    conteudo = :conteudo, 
-                    comentario_autor = :comentario_autor
-                WHERE id = :id";
-        
+    // Método para atualizar um post existente
+    public static function atualizarPost($id, $titulo, $conteudo, $comentario_autor)
+    {
         try {
-            $result = Banco::getConn()->prepare($sql);
-
-            $result->bindParam(':titulo', $titulo, PDO::PARAM_STR);
-            $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+            $conn = Banco::getConn();
+            $stmt = $conn->prepare("UPDATE posts SET titulo = :titulo, conteudo = :conteudo, comentario_autor = :comentario_autor WHERE id = :id");
             
-            if ($comentario_autor === null || $comentario_autor === '') {
-                $result->bindValue(':comentario_autor', null, PDO::PARAM_NULL);
-            } else {
-                $result->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
-            }
-
-            $result->bindParam(':id', $id, PDO::PARAM_INT); 
+            $stmt->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+            $stmt->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+            $stmt->bindParam(':comentario_autor', $comentario_autor, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             
-            return $result->execute(); 
+            return $stmt->execute();
 
         } catch (PDOException $e) {
             error_log("Erro ao atualizar post: " . $e->getMessage());
             return false;
         }
     }
+
+    // Método para deletar um post
+    public static function deletarPost($id)
+    {
+        try {
+            $conn = Banco::getConn();
+            $stmt = $conn->prepare("DELETE FROM posts WHERE id = :id");
+            
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            error_log("Erro ao deletar post: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para contar todos os posts (para paginação)
+    public static function contarTodosPosts()
+    {
+        try {
+            $conn = Banco::getConn();
+            $stmt = $conn->query("SELECT COUNT(*) FROM posts");
+            
+            return $stmt->fetchColumn(); // Retorna o valor da primeira coluna da primeira linha
+
+        } catch (PDOException $e) {
+            error_log("Erro ao contar posts: " . $e->getMessage());
+            return 0; // Retorna 0 em caso de erro
+        }
+    }
 }
-?>

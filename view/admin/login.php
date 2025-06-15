@@ -1,14 +1,9 @@
-<?php
-define('BASE_URL', '/Blog_php');
-?>
-
-
 <div class="login-box">
     <h2>Login do Administrador</h2>
     <?php if (!empty($erro)) : ?>
         <div class="erro-login"><?= htmlspecialchars($erro) ?></div>
     <?php endif; ?>
-    <form method="POST" action="<?= BASE_URL ?>/login">
+    <form method="POST" action="<?= BASE_URL ?>admin/login">
         <label for="nome_usuario">Usuário:</label>
         <input type="text" id="nome_usuario" name="nome_usuario" required />
 
@@ -18,4 +13,3 @@ define('BASE_URL', '/Blog_php');
         <button type="submit">Entrar</button>
     </form>
 </div>
-

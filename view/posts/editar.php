@@ -10,7 +10,7 @@
     }
     ?>
 
-    <form action="/posts/edit/<?php echo htmlspecialchars($post->id); ?>" method="POST">
+    <form action="<?= BASE_URL ?>posts/edit/<?php echo htmlspecialchars($post->id); ?>" method="POST">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($post->id); ?>">
 
         <div class="form-group">
@@ -34,6 +34,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-        <a href="/posts/mostrar/<?php echo htmlspecialchars($post->id); ?>" class="btn btn-secondary">Cancelar</a>
+        <a href="<?= BASE_URL ?>id/<?php echo htmlspecialchars($post->id); ?>" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

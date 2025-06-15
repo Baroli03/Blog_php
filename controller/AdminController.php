@@ -22,9 +22,9 @@ class AdminController {
         ];
         extract($data_para_view); 
 
-        include __DIR__ . '/../views/partes/header.php';
-        include __DIR__ . '/../views/admin/painel.php'; 
-        include __DIR__ . '/../views/partes/footer.php';
+        include __DIR__ . '/../view/partes/header.php';
+        include __DIR__ . '/../view/admin/painel.php'; 
+        include __DIR__ . '/../view/partes/footer.php';
     }
 
 

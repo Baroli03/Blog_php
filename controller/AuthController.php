@@ -16,15 +16,20 @@ class AuthController
             if ($admin && password_verify($senha, $admin['senha'])) {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['admin_id'] = $admin['id'];
-                header("Location: /Blog_php/painel");
+                // CORREÇÃO AQUI: Redirecionamento corrigido com BASE_URL
+                header("Location: " . BASE_URL . "admin/painel");
                 exit;
             } else {
                 $_SESSION['error_message'] = "Usuário ou senha inválidos.";
-                header("Location: /posts/index");
+                // CORREÇÃO AQUI: Redirecionamento corrigido com BASE_URL
+                // Alterado para admin/login para voltar para a página de login em caso de erro
+                header("Location: " . BASE_URL . "admin/login"); 
                 exit;
             }
         } else {
-            header("Location: /posts/index");
+            // CORREÇÃO AQUI: Redirecionamento corrigido com BASE_URL
+            // Alterado para admin/login se não for POST, para exibir o formulário de login
+            header("Location: " . BASE_URL . "admin/login"); 
             exit;
         }
     }
@@ -33,7 +38,8 @@ class AuthController
     {
         session_start();
         session_destroy();
-        header("Location: /posts/index");
+        // CORREÇÃO AQUI: Redirecionamento corrigido com BASE_URL
+        header("Location: " . BASE_URL . "posts/index");
         exit;
     }
 }

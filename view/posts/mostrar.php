@@ -20,7 +20,8 @@
     <?php endif; ?>
 
     <p>
-        <a href="/posts/index">Voltar para a lista de posts</a>
+        <a href="<?= BASE_URL ?>posts/index">Voltar para a lista de posts</a>
     </p>
     <?php else : ?>
+        <p>Post não encontrado.</p> <?php endif; ?>
 </div>

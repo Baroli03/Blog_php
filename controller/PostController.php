@@ -11,7 +11,8 @@ class PostController{
         }
         if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || !isset($_SESSION['admin_id'])) {
             $_SESSION['error_message'] = 'Acesso restrito. Faça login como administrador.';
-            header('Location: /admin/login'); 
+            // Redirecionamento corrigido com BASE_URL
+            header('Location: ' . BASE_URL . 'admin/login'); 
             exit();
         }
     }
@@ -29,7 +30,8 @@ class PostController{
     $posts = [];
 
     if ($posts_brutos) {
-        while($row = $posts_brutos->fetch(PDO::FETCH_OBJ)) {
+        // CORREÇÃO FINAL AQUI PARA PDO: Usar fetch() sem argumento (já configurado para OBJ por padrão no banco.php)
+        while($row = $posts_brutos->fetch()) { 
             $posts[] = $row;
         }
     }
@@ -47,11 +49,10 @@ class PostController{
 
     extract($data_para_view); 
 
-    include __DIR__ . '/../views/partes/header.php';
-
-    include __DIR__ . '/../views/posts/index.php'; 
-    
-    include __DIR__ . '/../views/partes/footer.php';
+    // Caminhos para as views corrigidos de '/../view/' para '/../views/'
+    include __DIR__ . '/../view/partes/header.php';
+    include __DIR__ . '/../view/posts/index.php'; 
+    include __DIR__ . '/../view/partes/footer.php';
     }
 
 
@@ -74,11 +75,10 @@ class PostController{
 
         extract($data_para_view);
 
-        include __DIR__ . '/../views/partes/header.php';
-
-        include __DIR__ . '/../views/posts/mostrar.php';
-
-        include __DIR__ . '/../views/partes/footer.php';
+        // Caminhos para as views corrigidos de '/../view/' para '/../views/'
+        include __DIR__ . '/../view/partes/header.php';
+        include __DIR__ . '/../view/posts/mostrar.php';
+        include __DIR__ . '/../view/partes/footer.php';
     }
 
 
@@ -94,31 +94,34 @@ class PostController{
             if ($sucesso) {
 
                 $_SESSION['success_message'] = 'Post excluído com sucesso!';
-                header('Location: /posts/index');
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/index');
                 exit();
             } else {
                 $_SESSION['error_message'] = 'Erro ao excluir o post. Por favor, tente novamente.';
-                header('Location: /posts/index');
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/index');
                 exit();
             }
         } else {
              $_SESSION['error_message'] = 'ID de post inválido para exclusão.';
-             header('Location: /posts/index');
-            exit();
+             // Redirecionamento corrigido com BASE_URL
+             header('Location: ' . BASE_URL . 'posts/index');
+             exit();
+        }
     }
-}
 
 
-static function create() {
+    static function create() {
         self::checkAdminLogin(); 
 
         $data_para_view = [
             'titulo_pagina' => 'Criar Novo Post', 
             'post' => null, 
             'success_message' => $_SESSION['success_message'] ?? null, 
-            'error_message' => $_SESSION['error_message'] ?? null,   
+            'error_message' => $_SESSION['error_message'] ?? null, 
         ];
-    
+        
         unset($_SESSION['success_message'], $_SESSION['error_message']); 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -130,7 +133,8 @@ static function create() {
 
             if (empty($titulo) || empty($conteudo) || $admin_id === null) {
                 $_SESSION['error_message'] = 'Erro: Título e Conteúdo são obrigatórios. Certifique-se de estar logado.';
-                header('Location: /posts/create');
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/create');
                 exit();
             }
 
@@ -139,20 +143,23 @@ static function create() {
 
             if ($sucesso) {
                 $_SESSION['success_message'] = 'Post criado com sucesso!';
-                header('Location: /posts/index');
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/index');
                 exit();
             } else {
                 $_SESSION['error_message'] = 'Erro interno ao criar o post. Tente novamente.';
-                header('Location: /posts/create');
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/create');
                 exit();
             }
 
         } else {
             extract($data_para_view);
 
-            include __DIR__ . '/../views/partes/header.php';
-            include __DIR__ . '/../views/posts/create.php';
-            include __DIR__ . '/../views/partes/footer.php';
+            // Caminhos para as views corrigidos de '/../view/' para '/../views/'
+            include __DIR__ . '/../view/partes/header.php';
+            include __DIR__ . '/../view/posts/create.php';
+            include __DIR__ . '/../view/partes/footer.php';
         }
     }
 
@@ -172,7 +179,8 @@ static function create() {
             
             if ($id <= 0 || empty($titulo) || empty($conteudo)) {
                 $_SESSION['error_message'] = 'Erro: ID do post, Título e Conteúdo são obrigatórios.';
-                header('Location: /posts/edit/' . htmlspecialchars($id)); 
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/edit/' . htmlspecialchars($id)); 
                 exit();
             }
 
@@ -180,11 +188,13 @@ static function create() {
 
             if ($sucesso) {
                 $_SESSION['success_message'] = 'Post atualizado com sucesso!';
-                header('Location: /posts/index'); 
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/index'); 
                 exit();
             } else {
                 $_SESSION['error_message'] = 'Erro interno ao atualizar o post. Tente novamente.';
-                header('Location: /posts/edit/' . htmlspecialchars($id));
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/edit/' . htmlspecialchars($id));
                 exit();
             }
 
@@ -195,16 +205,18 @@ static function create() {
                     $titulo_pagina = 'Editar: ' . htmlspecialchars(substr($post->titulo, 0, 50)) . '...';
                 } else {
                     $_SESSION['error_message'] = 'Post não encontrado para edição.';
-                    header('Location: /posts/index'); 
+                    // Redirecionamento corrigido com BASE_URL
+                    header('Location: ' . BASE_URL . 'posts/index'); 
                     exit();
                 }
             } else {
                 $_SESSION['error_message'] = 'ID de post inválido para edição.';
-                header('Location: /posts/index'); 
+                // Redirecionamento corrigido com BASE_URL
+                header('Location: ' . BASE_URL . 'posts/index'); 
                 exit();
             }
 
-           
+            
             $data_para_view = [
                 'titulo_pagina' => $titulo_pagina,
                 'post' => $post, 
@@ -214,12 +226,11 @@ static function create() {
             unset($_SESSION['success_message'], $_SESSION['error_message']); 
             extract($data_para_view); 
 
-            include __DIR__ . '/../views/partes/header.php';
-            include __DIR__ . '/../views/posts/edit.php'; 
-            include __DIR__ . '/../views/partes/footer.php';
+            // Caminhos para as views corrigidos de '/../view/' para '/../views/'
+            include __DIR__ . '/../view/partes/header.php';
+            include __DIR__ . '/../view/posts/edit.php'; 
+            include __DIR__ . '/../view/partes/footer.php';
         }
     }
-
 }
-
 ?>

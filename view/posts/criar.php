@@ -10,7 +10,7 @@
     }
     ?>
 
-    <form action="/posts/create" method="POST">
+    <form action="<?= BASE_URL ?>posts/create" method="POST">
         <div class="form-group">
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required 
@@ -32,6 +32,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Salvar Post</button>
-        <a href="/posts/index" class="btn btn-secondary">Cancelar</a>
+        <a href="<?= BASE_URL ?>posts/index" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
