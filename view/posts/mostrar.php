@@ -23,4 +23,41 @@
         <a href="/posts/index">Voltar para a lista de posts</a>
     </p>
     <?php else : ?>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+
+<hr>
+
+<h3>Comentários</h3>
+<?php if (!empty($comentarios)): ?>
+    <ul>
+        <?php foreach ($comentarios as $comentario): ?>
+            <li style="margin-bottom: 10px;">
+                <strong><?= htmlspecialchars($comentario['author']) ?></strong> em <?= $comentario['created_at'] ?><br>
+                <?= nl2br(htmlspecialchars($comentario['content'])) ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p>Seja o primeiro a comentar!</p>
+<?php endif; ?>
+
+<hr>
+
+<h3>Adicionar Comentário</h3>
+<form action="/posts/addComment/<?= $post['id'] ?>" method="POST">
+    <label for="author">Nome:</label><br>
+    <input type="text" name="author" required><br><br>
+
+    <label for="content">Comentário:</label><br>
+    <textarea name="content" required rows="4" cols="50"></textarea><br><br>
+
+    <button type="submit">Enviar Comentário</button>
+</form>
+
+<?php if (!empty($_SESSION['msg'])): ?>
+    <p style="color: green;"><?= $_SESSION['msg']; unset($_SESSION['msg']); ?></p>
+<?php endif; ?>
+>>>>>>> baecbd1 (up)

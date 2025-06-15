@@ -43,7 +43,11 @@ class PostController{
             'paginaAtual' => $paginaAtual, 
             'totalPaginas' => $totalPaginas,
             'titulo_pagina' => 'Lista de Posts' 
+<<<<<<< HEAD
         ]
+=======
+    ];
+>>>>>>> baecbd1 (up)
 
     extract($data_para_view); 
 

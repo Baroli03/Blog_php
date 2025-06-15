@@ -13,7 +13,11 @@ class Post {
     $result->bindParam(':posts_por_pagina', $posts_por_pagina, PDO::PARAM_INT);
     $result->bindParam(':offset', $OFFSET, PDO::PARAM_INT);
     $result->execute();
+<<<<<<< HEAD
     return $result
+=======
+    return $result;
+>>>>>>> baecbd1 (up)
     }catch (PDOException $e) {
         error_log("Erro ao listar posts: " . $e->getMessage());
         return false;
@@ -64,7 +68,11 @@ class Post {
         try {
             $result = Banco::getConn()->prepare($sql);
             $result->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
+<<<<<<< HEAD
             $result->bindParam(':titulo', $titulo, PDO::PARAM_STR)
+=======
+            $result->bindParam(':titulo', $titulo, PDO::PARAM_STR);
+>>>>>>> baecbd1 (up)
             $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
             if ($comentario_autor === null || $comentario_autor === '') {
                 $result->bindValue(':comentario_autor', null, PDO::PARAM_NULL);

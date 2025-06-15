@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 $host     = 'localhost:3306';
+=======
+$host     = 'localhost:3307';
+>>>>>>> baecbd1 (up)
 $user     = 'root';
 $senha = '';
 $dbNome   = 'blog_db';

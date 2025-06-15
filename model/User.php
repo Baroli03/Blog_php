@@ -3,7 +3,11 @@ require_once __DIR__ . '/../config/banco.php';
 
 class User
 {
+<<<<<<< HEAD
     public static function getByUsername($nome_usuario)
+=======
+    public static function getByUsername($nome_usuario){
+>>>>>>> baecbd1 (up)
     try{
         {
             $conn = Banco::getConn();
@@ -18,3 +22,7 @@ class User
             return false; 
         }
 }
+<<<<<<< HEAD
+=======
+}
+>>>>>>> baecbd1 (up)
