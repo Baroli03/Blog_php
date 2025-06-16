@@ -1,8 +1,6 @@
 <?php
-// C:\xampp\htdocs\Blog_php\controller\PostController.php
 require_once __DIR__ . "/../model/Post.php";
-require_once __DIR__ . "/../model/Comentario.php"; // NOVO: Incluindo o modelo Comentario
-
+require_once __DIR__ . "/../model/Comentario.php"; 
 
 class PostController{
 
@@ -56,14 +54,13 @@ class PostController{
         $id = (int)$parametro_id;
         $post = null;
         $titulo_pagina = 'Post Não Encontrado';
-        $comentarios = []; // Inicializa array de comentários
+        $comentarios = []; 
 
         if ($id > 0) {
             $post = Post::pegarPostId($id); 
             if ($post) {
                 $titulo_pagina = $post->titulo; 
 
-                // NOVO: Verificar se o admin está logado para listar todos os comentários ou só os aprovados
                 $is_admin_logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_SESSION['admin_id']);
                 $comentarios = Comentario::listarComentariosPorPost($id, !$is_admin_logged_in); 
             }
@@ -72,8 +69,8 @@ class PostController{
         $data_para_view = [
             'post' => $post,
             'titulo_pagina' => $titulo_pagina,
-            'comentarios' => $comentarios, // NOVO: Passa os comentários para a view
-            'is_admin_logged_in' => $is_admin_logged_in ?? false // Passa status do admin para view
+            'comentarios' => $comentarios, 
+            'is_admin_logged_in' => $is_admin_logged_in ?? false 
         ];
 
         extract($data_para_view);
@@ -220,7 +217,6 @@ class PostController{
         }
     }
 
-    // NOVO MÉTODO: Adicionar Comentário
     public static function addComentario($parametro_post_id) {
         $post_id = (int)$parametro_post_id;
         if ($post_id <= 0) {
@@ -245,25 +241,20 @@ class PostController{
                 }
             }
         }
-        // Redireciona de volta para a página do post (mesmo em caso de erro, para exibir a mensagem)
         header('Location: ' . BASE_URL . 'id/' . htmlspecialchars($post_id));
         exit();
     }
 
-    // NOVO MÉTODO: Aprovar Comentário (apenas para Admin)
     public static function aprovarComentario($parametro_comentario_id) {
-        self::checkAdminLogin(); // Garante que apenas admins podem aprovar
-
+        self::checkAdminLogin(); 
         $comentario_id = (int)$parametro_comentario_id;
         if ($comentario_id <= 0) {
             $_SESSION['error_message'] = 'ID de comentário inválido.';
-            header('Location: ' . BASE_URL . 'posts/index'); // Ou para a página do post
+            header('Location: ' . BASE_URL . 'posts/index'); 
             exit();
         }
 
-        // Para saber qual post redirecionar, precisamos do post_id do comentário
-        // Uma forma seria buscar o comentário para pegar o post_id
-        $comentario_data = Comentario::listarComentariosPorPost($comentario_id, false); // Buscar pelo ID do comentário
+        $comentario_data = Comentario::listarComentariosPorPost($comentario_id, false); 
         $post_id_redirect = null;
         if ($comentario_data && isset($comentario_data[0]) && isset($comentario_data[0]->post_id)) {
              $post_id_redirect = $comentario_data[0]->post_id;
@@ -277,11 +268,10 @@ class PostController{
             $_SESSION['error_message'] = 'Erro ao aprovar comentário. Tente novamente.';
         }
 
-        // Redireciona de volta para a página do post original, se possível
         if ($post_id_redirect) {
             header('Location: ' . BASE_URL . 'id/' . htmlspecialchars($post_id_redirect));
         } else {
-            header('Location: ' . BASE_URL . 'posts/index'); // Fallback
+            header('Location: ' . BASE_URL . 'posts/index'); 
         }
         exit();
     }
