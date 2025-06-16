@@ -1,0 +1,23 @@
+O que fazer aqui na pasta Controller
+
+Esta pasta guarda os "Controladores" do nosso blog. Eles são como o "cérebro" que decide o que fazer quando alguém visita uma página ou clica em um botão.
+
+O que colocar aqui:
+
+    Arquivos PHP que terminam com Controller.php (ex: PostController.php, AdminController.php, ComentarioController.php).
+
+    A lógica que recebe os pedidos (URLs) do usuário. Por exemplo, quando alguém visita /posts/123, o Controller de Posts vai saber que é para mostrar o post de ID 123.
+
+    Chamadas para os "Modelos" (da pasta Model) para pegar informações do banco de dados ou para mandar salvar algo.
+
+    A preparação dos dados que serão mostrados na tela.
+
+    As decisões de para onde redirecionar o usuário depois de uma ação (ex: depois de criar um post, redirecionar para a lista de posts).
+
+O que NÃO colocar aqui:
+
+    Código HTML direto. A parte de mostrar a tela é da pasta View.
+
+    Queries de banco de dados diretamente. Quem faz isso é o "Modelo" (da pasta Model).
+
+    Lógica complexa de negócios que poderia ser reutilizada. Isso vai nos "Serviços" ou no próprio "Modelo".
