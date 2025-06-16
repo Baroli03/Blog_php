@@ -79,6 +79,7 @@ class AdminController {
         self::checkAdminLogin(); 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+            validar_csrf_token(); 
             $resultado = ['success' => false, 'message' => 'Ação inválida.'];
 
             switch ($_POST['action']) {

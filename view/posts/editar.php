@@ -11,6 +11,7 @@
     ?>
 
     <form action="<?= BASE_URL ?>posts/edit/<?php echo htmlspecialchars($post->id); ?>" method="POST">
+        <?php echo csrf_input(); ?>
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($post->id); ?>">
 
         <div class="form-group">

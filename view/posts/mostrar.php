@@ -42,6 +42,7 @@
         }
         ?>
         <form action="<?= BASE_URL ?>posts/addComentario/<?php echo htmlspecialchars($post->id); ?>" method="POST">
+            <?php echo csrf_input(); ?>
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>

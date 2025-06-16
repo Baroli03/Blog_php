@@ -118,6 +118,7 @@ class PostController{
         unset($_SESSION['success_message'], $_SESSION['error_message']); 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            validar_csrf_token(); 
         
             $titulo = $_POST['titulo'] ?? '';
             $conteudo = $_POST['conteudo'] ?? '';
@@ -160,6 +161,7 @@ class PostController{
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            validar_csrf_token(); 
 
             $titulo = $_POST['titulo'] ?? '';
             $conteudo = $_POST['conteudo'] ?? '';
@@ -226,6 +228,7 @@ class PostController{
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            validar_csrf_token(); 
             $nome = $_POST['nome'] ?? '';
             $email = $_POST['email'] ?? '';
             $conteudo = $_POST['conteudo'] ?? '';

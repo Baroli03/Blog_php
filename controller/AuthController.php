@@ -10,6 +10,7 @@ class AuthController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            validar_csrf_token(); 
             $nome = $_POST['nome_usuario'] ?? '';
             $senha = isset($_POST['senha']) ? $_POST['senha'] : ''; 
 

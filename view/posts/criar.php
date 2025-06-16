@@ -11,6 +11,7 @@
     ?>
 
     <form action="<?= BASE_URL ?>posts/criar" method="POST">
+        <?php echo csrf_input(); ?>
         <div class="form-group">
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required 

@@ -32,6 +32,7 @@
 
     <h2><?php echo $admin_para_editar ? 'Editar Administrador' : 'Criar Novo Administrador'; ?></h2>
     <form action="<?= BASE_URL ?>admin/processar-admin-form" method="POST">
+        <?php echo csrf_input(); ?>
         <?php if ($admin_para_editar): ?>
             <input type="hidden" name="action" value="editar_admin">
             <input type="hidden" name="admin_id" value="<?php echo htmlspecialchars($admin_para_editar['id']); ?>">
@@ -65,6 +66,7 @@
     <?php if ($admin_para_editar): ?>
         <h2 style="margin-top: 30px;">Atualizar Senha de <?php echo htmlspecialchars($admin_para_editar['nome_usuario']); ?></h2>
         <form action="<?= BASE_URL ?>admin/processar-admin-form" method="POST">
+            <?php echo csrf_input(); ?>
             <input type="hidden" name="action" value="atualizar_senha">
             <input type="hidden" name="admin_id_senha" value="<?php echo htmlspecialchars($admin_para_editar['id']); ?>">
             <div class="form-group">
@@ -97,6 +99,7 @@
                     <td class="actions">
                         <a href="<?= BASE_URL ?>admin/gerenciar-admins?action=editar&id=<?php echo htmlspecialchars($admin['id']); ?>">Editar</a>
                         <form action="<?= BASE_URL ?>admin/processar-admin-form" method="POST" style="display:inline;">
+                            <?php echo csrf_input(); ?>
                             <input type="hidden" name="action" value="excluir_admin">
                             <input type="hidden" name="admin_id_excluir" value="<?php echo htmlspecialchars($admin['id']); ?>">
                             <button type="submit" onclick="return confirm('Tem certeza que deseja excluir o administrador <?php echo htmlspecialchars($admin['nome_usuario']); ?>? Esta ação é irreversível.');">Excluir</button>
