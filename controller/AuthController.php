@@ -5,15 +5,17 @@ class AuthController
 {
     public static function login() 
     {
- 
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = $_POST['nome_usuario'] ?? '';
-            $senha = $_POST['senha'] ?? '';
+            $senha = isset($_POST['senha']) ? $_POST['senha'] : ''; 
 
-            $admin = User::getByUsername($nome);
+            $admin = User::getByUsername($nome); 
 
-            if ($admin && password_verify($senha, $admin['senha'])) {
+            if ($admin && password_verify($senha, $admin['senha_hash'])) {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['admin_id'] = $admin['id'];
                 header("Location: " . BASE_URL . "admin/painel");
@@ -40,6 +42,9 @@ class AuthController
 
     public static function logout()
     {
+        if (session_status() == PHP_SESSION_NONE) { 
+            session_start();
+        }
         session_destroy();
         header("Location: " . BASE_URL . "posts/index");
         exit;

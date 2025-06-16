@@ -16,7 +16,7 @@ if (isset($error_message) && $error_message) { // Correção: usar $error_messag
         ?>
             <div class="post-item">
             <h2>
-                <a href="<?= BASE_URL ?>id/<?php echo htmlspecialchars($post->id); ?>"> <?php echo htmlspecialchars($post->titulo); ?></a>
+                <a class="titulo" href="<?= BASE_URL ?>id/<?php echo htmlspecialchars($post->id); ?>"> <?php echo htmlspecialchars($post->titulo); ?></a>
             </h2>
 
             <span class="publicado">Publicado em: <?php echo $post->data_criacao ?></span>

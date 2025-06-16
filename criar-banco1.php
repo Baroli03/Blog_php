@@ -40,12 +40,7 @@ echo "Selecionado o banco de dados '$dbNome'.<br>";
 
 
 $tables = [
-    'admin' => "
-        CREATE TABLE IF NOT EXISTS admin (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nome_usuario VARCHAR(50) NOT NULL UNIQUE,
-            senha VARCHAR(255) NOT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;",
+
 
     'posts' => "
         CREATE TABLE IF NOT EXISTS posts (

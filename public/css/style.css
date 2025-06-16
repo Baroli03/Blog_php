@@ -1,0 +1,325 @@
+/* --- ESTILOS GERAIS E LAYOUT PRINCIPAL --- */
+
+/* Reset básico para remover margens/paddings padrão dos navegadores */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Inclui padding e borda no tamanho total */
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Fonte mais agradável */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor leitura */
+    background-color: #f4f4f7; /* Um cinza claro suave para o fundo da página */
+    color: #333; /* Cor padrão do texto */
+}
+
+/* Contêiner principal que centraliza o conteúdo */
+.container {
+    max-width: 1000px; /* Largura máxima para centralizar o conteúdo */
+    margin: 20px auto; /* Centraliza horizontalmente e dá margem superior/inferior */
+    background-color: #ffffff; /* Fundo branco para a área de conteúdo */
+    padding: 20px 30px; /* Padding interno para o conteúdo */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra mais destacada */
+    border-radius: 8px; /* Bordas levemente arredondadas para o contêiner */
+}
+
+/* O main agora será o conteúdo dentro do .container */
+main {
+    /* Removido width e margin fixos daqui, pois o .container já lida com isso */
+    background-color: transparent; /* Main não precisa de cor de fundo se o container tiver */
+    padding: 0; /* Removido padding extra aqui, se já no .container */
+}
+
+/* --- NAVEGAÇÃO --- */
+.main-nav {
+    background-color: #34495e; /* Azul escuro da sua navegação */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 30px; /* Espaçamento abaixo da navegação */
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Centraliza a lista UL dentro do NAV */
+    display: flex;
+    justify-content: space-around; /* Distribui os itens */
+    align-items: center;
+    font-size: 1.1em; /* Tamanho da fonte relativo */
+    max-width: 1000px; /* Alinha com o .container */
+}
+
+.main-nav ul li {
+    margin: 0 10px;
+}
+
+.main-nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    background-color: #2c3e50; /* Fundo um pouco mais escuro no hover */
+    color: #ffffff;
+}
+
+/* --- CABEÇALHO DO BLOG --- */
+.blog-header {
+    text-align: center;
+    padding: 40px 0; /* Mais padding */
+    background-color: #f9f9fc; /* Um fundo quase branco */
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px; /* Espaçamento abaixo do cabeçalho */
+    border-radius: 8px 8px 0 0; /* Bordas arredondadas no topo */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.blog-header h1 {
+    font-size: 2.8em; /* Fonte maior para o título */
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    letter-spacing: -0.5px; /* Ajuste fino do espaçamento de letras */
+}
+
+.blog-header p {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+/* --- ESTILOS DO POST (LISTA E ÚNICO) --- */
+.lista-posts .post-item, .post-unico {
+    border: 1px solid #e0e0e0; /* Borda mais suave */
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 6px; /* Bordas arredondadas */
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+.lista-posts .post-item h2 a, .post-unico h1 {
+    font-size: 2.2em; /* Tamanho do título do post */
+    color: #34495e; /* Cor do título */
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block; /* Para que o link ocupe toda a linha do h2 */
+}
+
+.lista-posts .post-item h2 a:hover {
+    color: #3498db; /* Azul no hover */
+    text-decoration: underline;
+}
+
+.publicado {
+    font-size: 0.9em;
+    color: #95a5a6; /* Cinza suave */
+    margin-bottom: 15px;
+    display: block;
+}
+
+.post {
+    margin-bottom: 15px;
+    /* Removido display: flex, justify-content, height, align-items pois são para o conteúdo do post, não o wrapper */
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Garante que a imagem não tenha espaço extra abaixo */
+    margin: 15px auto; /* Centraliza a imagem no post */
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.post p {
+    line-height: 1.7; /* Mais espaço entre linhas */
+    color: #444;
+}
+
+.post a {
+    color: #3498db; /* Links dentro do post */
+    text-decoration: underline;
+}
+
+.post a:hover {
+    color: #2980b9;
+}
+
+
+/* --- SEÇÃO DE COMENTÁRIOS E FORMULÁRIOS --- */
+.comentario-form-container, .lista-comentarios, .form-container, .login-box {
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.comentario-form-container h3, .lista-comentarios h3, .form-container h1, .login-box h2 {
+    color: #34495e;
+    margin-bottom: 20px;
+    text-align: center; /* Centraliza os títulos dos formulários */
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.btn-primary, button[type="submit"] {
+    background-color: #3498db; /* Azul para botões primários */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover, button[type="submit"]:hover {
+    background-color: #2980b9; /* Azul mais escuro no hover */
+}
+
+.btn-secondary {
+    background-color: #7f8c8d; /* Cinza para botões secundários */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: none; /* Para links que parecem botões */
+    display: inline-block; /* Para o "Cancelar" */
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+}
+
+.btn-edit, .btn-delete, .btn-success {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit { background-color: #2ecc71; } /* Verde esmeralda */
+.btn-edit:hover { background-color: #27ae60; }
+
+.btn-delete { background-color: #e74c3c; } /* Vermelho alizarin */
+.btn-delete:hover { background-color: #c0392b; }
+
+.btn-success { background-color: #2ecc71; } /* Verde esmeralda */
+.btn-success:hover { background-color: #27ae60; }
+
+
+/* Mensagens de feedback */
+.alert {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0.95;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Estilos de paginação */
+.paginacao {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.paginacao a {
+    padding: 10px 18px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #3498db;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.paginacao a:hover:not(.active) {
+    background-color: #f2f2f2;
+}
+
+.paginacao a.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+    font-weight: bold;
+}
+
+/* Estilos para comentários */
+.comentario-item {
+    border-bottom: 1px dashed #ecf0f1; /* Linha divisória suave */
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.comentario-item:last-child {
+    border-bottom: none;
+}
+.comentario-item h4 {
+    font-size: 1.1em;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+.comentario-item p {
+    font-size: 0.95em;
+    color: #555;
+    margin-top: 0;
+}
+.comentario-item .admin-comentario-actions {
+    margin-top: 10px;
+}
+
+/* Opcional: Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #34495e;
+    color: white;
+    font-size: 0.9em;
+}
